@@ -33,5 +33,8 @@ stages:
               version: '6.x'
             displayName: 'Install .NET 6 SDK'
 
+          - script: dotnet restore apps/api-asset/AssetApi.csproj
+            displayName: 'Restore .NET packages'
+
           - script: dotnet build apps/api-asset/AssetApi.csproj -c Release --no-restore
             displayName: 'Build api-asset'
