@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">efams</string>
+    <string name="title_activity_main">efams</string>
+    <string name="package_name">com.efams.mobile</string>
+    <string name="custom_url_scheme">com.efams.mobile</string>
+</resources>

@@ -1,0 +1,99 @@
+{
+  "name": "mobile-field",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/mobile-field/src",
+  "prefix": "efams",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/mobile-field",
+        "index": "apps/mobile-field/src/index.html",
+        "main": "apps/mobile-field/src/main.ts",
+        "polyfills": "apps/mobile-field/src/polyfills.ts",
+        "tsConfig": "apps/mobile-field/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/mobile-field/src/favicon.ico",
+          "apps/mobile-field/src/assets"
+        ],
+        "styles": [
+          "node_modules/@ionic/angular/css/core.css",
+          "node_modules/bootstrap/dist/css/bootstrap.min.css",
+          "apps/mobile-field/src/styles.scss"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/mobile-field/src/environments/environment.ts",
+              "with": "apps/mobile-field/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "mobile-field:build:production"
+        },
+        "development": {
+          "browserTarget": "mobile-field:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "mobile-field:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/mobile-field/**/*.ts",
+          "apps/mobile-field/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/mobile-field"],
+      "options": {
+        "jestConfig": "apps/mobile-field/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

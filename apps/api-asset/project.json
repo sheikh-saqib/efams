@@ -1,0 +1,28 @@
+{
+    "name": "api-asset",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "targets": {
+      "build": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "dotnet build",
+          "cwd": "apps/api-asset"
+        },
+        "outputs": ["apps/api-asset/bin", "apps/api-asset/obj"]
+      },
+      "serve": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "dotnet run",
+          "cwd": "apps/api-asset"
+        },
+        "configurations": {
+          "production": {
+            "command": "dotnet run --configuration Release",
+            "cwd": "apps/api-asset"
+          }
+        }
+      }
+    }
+  }
