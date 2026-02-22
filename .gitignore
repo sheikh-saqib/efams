@@ -50,3 +50,45 @@ Thumbs.db
 .env
 .env.local
 .env.*.local
+/.vs
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET publish output
+**/publish/
+
+# EF Core migrations scripts (generated)
+# (keep Migrations/ folder but ignore generated SQL scripts if any)
+
+# Rider
+.idea/
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Docker
+.dockerignore
+
+# Logs
+*.log
+logs/
+
+# OS
+ehthumbs.db
+Desktop.ini
+
+# Capacitor / Android native (optional - remove this block if you commit android/)
+# android/
+# ios/
+
+# npm / yarn logs
+package-lock.json.bak
+
+# Storybook build output
+storybook-static/
+/apps/api-asset/.vs
