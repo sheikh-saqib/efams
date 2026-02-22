@@ -1,0 +1,37 @@
+trigger:
+  branches:
+    include:
+      - main
+      - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+  - stage: Build
+    jobs:
+      - job: Frontend
+        displayName: 'Nx lint, test, build'
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '18.x'
+            displayName: 'Install Node.js'
+
+          - script: npm ci
+            displayName: 'npm ci'
+
+          - script: npx nx run-many -t lint,test,build --all --configuration=production --skip-nx-cache
+            displayName: 'Nx lint, test, build (all projects)'
+
+      - job: Backend
+        displayName: 'Build api-asset (.NET 6)'
+        steps:
+          - task: UseDotNet@2
+            inputs:
+              packageType: 'sdk'
+              version: '6.x'
+            displayName: 'Install .NET 6 SDK'
+
+          - script: dotnet build apps/api-asset/AssetApi.csproj -c Release --no-restore
+            displayName: 'Build api-asset'
