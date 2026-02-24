@@ -173,42 +173,6 @@ Both **web-dashboard** and **mobile-field** consume these components, replacing 
 ### What this demonstrates
 - Reusable web components built with StencilJS, consumed by Angular applications.
 
----
-
-## Phase Overview
-
-```mermaid
-flowchart LR
-  subgraph p1 [Phase 1 Done]
-    P1[Nx Angular Ionic .NET skeleton]
-  end
-  subgraph p2 [Phase 2 Done]
-    P2[api-asset SQL Server CI/CD docs]
-  end
-  subgraph p3 [Phase 3]
-    P3A[api-asset full CRUD]
-    P3B[api-facility new service]
-    P3C[api-workorder new service]
-    P3D[Docker Compose Redis RabbitMQ]
-  end
-  subgraph p4 [Phase 4]
-    P4A[Angular Ionic UI all 3 APIs]
-    P4B[Keycloak OAuth2 JWT roles]
-    P4C[OWASP all services]
-  end
-  subgraph p5 [Phase 5]
-    P5A[xUnit Moq all 3 services]
-    P5B[Storybook components]
-    P5C[ELK Serilog Kibana]
-  end
-  subgraph p6 [Phase 6]
-    P6[StencilJS shared components]
-  end
-  p1 --> p2 --> p3 --> p4 --> p5 --> p6
-```
-
----
-
 ## Full Coverage Checklist
 
 | Area | Phase |

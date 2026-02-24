@@ -1,6 +1,7 @@
 using AssetApi.Data;
 using AssetApi.Services;
 using Microsoft.EntityFrameworkCore;
+using AssetApi.Messaging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AssetDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IAssetService, AssetService>();
+//Redis
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+  options.Configuration = builder.Configuration.GetConnectionString("Redis");
+  options.InstanceName = "efams-asset:";
+});
 
+builder.Services.AddSingleton<RabbitMqPublisher>();
+
+builder.Services.AddScoped<IAssetService, AssetService>();
+builder.Services.AddHealthChecks();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -27,7 +37,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.MapHealthChecks("/health");
 app.MapControllers();
 
 app.Run();
