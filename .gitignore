@@ -51,6 +51,7 @@ Thumbs.db
 .env.local
 .env.*.local
 /.vs
+**/.vs/
 *.user
 *.suo
 *.userosscache
@@ -91,4 +92,3 @@ package-lock.json.bak
 
 # Storybook build output
 storybook-static/
-/apps/api-asset/.vs

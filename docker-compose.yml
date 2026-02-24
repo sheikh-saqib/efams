@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${SA_PASSWORD}"
+    ports:
+      - "1433:1433"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  api-asset:
+    build:
+      context: .
+      dockerfile: apps/api-asset/Dockerfile
+    ports:
+      - "5001:80"
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sql-server;Database=EfamsAssets;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;"
+      ConnectionStrings__Redis: "redis:6379"
+      RabbitMQ__Host: "rabbitmq"
+      RabbitMQ__Port: "5672"
+    depends_on:
+      - sql-server
+      - redis
+      - rabbitmq
+
+  api-facility:
+    build:
+      context: .
+      dockerfile: apps/api-facility/Dockerfile
+    ports:
+      - "5002:80"
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sql-server;Database=EfamsFacilities;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;"
+    depends_on:
+      - sql-server
+      - redis
+
+  api-workorder:
+    build:
+      context: .
+      dockerfile: apps/api-workorder/Dockerfile
+    ports:
+      - "5003:80"
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sql-server;Database=EfamsWorkOrders;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;"
+    depends_on:
+      - sql-server
+      - redis
+      - rabbitmq
